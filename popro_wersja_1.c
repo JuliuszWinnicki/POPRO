@@ -12,8 +12,9 @@
 struct macierz
 {
     char nazwamacierzy[MAXNAZWA];
-    int cokolwiek;
+    int liczbaKolumn;
     char zawartosc[];
+    struct macierz* nastepny;
 };
 
 typedef struct macierz macierz;
@@ -22,11 +23,35 @@ typedef struct macierz* wskMacierz;
 void wynegerujSkrypt()
 {
     FILE *fptr;
-    if(fptr=fopen("Instrukcja.txt", "w")!=NULL)
+    if(fptr=fopen("Instrukcja.txt", "r")!=NULL)
     {
-    fprintf(fptr, "Wyjscie z programu poleceniem Exit");
-    fclose(fptr);
+        fprintf(stdout, "Plik ze skryptem zostal juz wygenerowany wczesniej\n");
+        fclose(fptr);
     }
+    else
+    {
+        if(fptr=fopen("Instrukcja.txt", "w")!=NULL) //zabezpieczenie przed nieprawidlowym otwieraniem pliku
+        {
+        fprintf(fptr, "Wyjscie z programu poleceniem Exit\n");
+        fclose(fptr);
+        }
+        else
+        {
+            fprintf(stdout, "Blad!");
+        }
+    }
+}
+
+wskMacierz dodajMacierz (int liczbaElementow)
+{
+    wskMacierz nowaMacierz = malloc(sizeof(char)*MAXNAZWA+sizeof(wskMacierz)+sizeof(int)+sizeof(char)*liczbaElementow);
+    return nowaMacierz;
+}
+
+void polaczenieSzeregowe (macierz s1, macierz s2)
+{
+    int nowaLiczbaKolumn = s1.liczbakolumn + s2.liczbakolumn;
+    wskMacierz nowaMacierz
 }
 
 
@@ -57,7 +82,7 @@ int main()
 
     macierz *macierz;
 
-    macierz = malloc(sizeof(char)*MAXNAZWA+sizeof(int)+sizeof(int) * d);
+    macierz = malloc(sizeof(char)*MAXNAZWA+sizeof(wskMacierz)+sizeof(int)+sizeof(int) * d);
     for (i = 0; i < d, i++)
     {
         macierz[i] = i + 1;
