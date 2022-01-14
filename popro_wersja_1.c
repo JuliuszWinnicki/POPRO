@@ -108,6 +108,11 @@ int main()
         wygenerujSkrypt();
     }
 
+    if (strcmp(kom, "Exit")==0)
+    {
+        exit(0);
+    }
+
     int wiersz, kolumna;
     int d;
 
