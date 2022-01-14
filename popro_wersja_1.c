@@ -36,7 +36,7 @@ struct macierz
 typedef struct macierz macierz;
 typedef struct macierz* wskMacierz;
 
-void wynegerujSkrypt()
+void wygenerujSkrypt()
 {
     FILE *fptr;
     if(fptr=fopen("Instrukcja.txt", "r")!=NULL)
