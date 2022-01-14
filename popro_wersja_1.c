@@ -11,7 +11,7 @@
 
 struct macierz
 {
-    char nazwamacierzy[MAXNAZWA];
+    char nazwaMacierzy[MAXNAZWA];
     int liczbaKolumn;
     char zawartosc[];
     struct macierz* nastepny;
@@ -48,10 +48,45 @@ wskMacierz dodajMacierz (int liczbaElementow)
     return nowaMacierz;
 }
 
-void polaczenieSzeregowe (macierz s1, macierz s2)
+int liczElTabeli (char tab[])
 {
-    int nowaLiczbaKolumn = s1.liczbakolumn + s2.liczbakolumn;
-    wskMacierz nowaMacierz
+    int i=0;
+    int liczbaEl=0;
+    while(tab[i]!=NULL)
+    {
+        i++;
+        liczbaEl++;
+    }
+    return liczbaEl;
+}
+
+wskMacierz polaczenieSzeregowe (wskMacierz s1, wskMacierz s2, nazwaNowejMacierzy)
+{
+    int liczbaEl1=liczElTabeli(s1->zawartosc);
+    int liczbaEl2=liczElTabeli(s2->zawartosc);
+    int liczbaWierszy1=liczbaArg1/(s1->liczbakolumn);
+    int liczbaWierszy2=liczbaArg2/(s2->liczbakolumn);
+    if(liczbaWierszy1 != liczbaWierszy2)
+    {
+        fprintf(stdout, "BLAD\nnie da sie polaczyc szeregowo macierzy o dwoch roznych liczbach wierszy\n\n");
+    }
+    else
+    {
+        int nowaLiczbaElMacierzy = liczbaEl1+liczbaEl2;
+        wskMacierz nowaMacierz=dodajMacierz(nowaLiczbaElMacierzy);
+        int nowaMacierz.liczbakolumn = (s1->liczbakolumn) + (s2->liczbakolumn);
+        strcpy(nowaMacierz->nazwaMacierzy, nazwaNowejMacierzy);
+        for(int i=0; i<liczbaArg1, i++)
+        {
+            nowaMacierz->zawartosc[i]=s1->zawartosc[i];
+        }
+        for(int i=0; i<liczbaArg2, i++)
+        {
+            nowaMacierz->zawartosc[i+liczbaArg1]=s2->zawartosc[i];
+        }
+        return nowaMacierz;
+    }
+    
 }
 
 
