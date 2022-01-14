@@ -112,22 +112,4 @@ int main()
     {
         exit(0);
     }
-
-    int wiersz, kolumna;
-    int d;
-
-    scanf("%d", &wiersz);
-    scanf("%d", &kolumna);
-    d=wiersz*kolumna;
-
-    macierz *macierz;
-
-    macierz = malloc(sizeof(char)*MAXNAZWA+sizeof(wskMacierz)+sizeof(int)+sizeof(int) * d);
-    for (i = 0; i < d, i++)
-    {
-        macierz[i] = i + 1;
-    }
-
-
-    struct macierz *s = malloc(sizeof(*s) + sizeof(char[strlen(zawartosc)]));
 }
