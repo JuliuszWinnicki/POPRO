@@ -7,6 +7,22 @@
 #define MAXKOMENDA 50;
 #define MAXNAZWA 20;
 
+/*
+1. Wyjście z programu poleceniem exit
+2. Dodanie wierzchołka poleceniem a : L, gdzie L jest etykietą dodawanego wierzchołka.
+3. Dodanie krawędzi poleceniem a : L1 , L2, gdzie L1 i L2 to etykiety wskazujące wierzchołki, między którymi
+ma być utworzona krawędź.
+4. Usunięcie wierzchołka poleceniem r : L
+5. Usunięcie krawędzi poleceniem r: L1 , L2
+6. Zapis do pliku tekstowego o zadanej przez użytkownika nazwie listy sąsiedztwa grafu (polecenie save
+nazwa_pliku).
+7. Zapis do pliku binarnego o zadanej przez użytkownika nazwie etykiet będących aktualnie w użyciu
+(polecenie dump nazwa_pliku).
+8. Wypisanie na standardowym wyjściu etykiet będących aktualnie w użyciu w postaci pionowego wektora
+(polecenie list).
+9. Wywołanie skryptu (plik tekstowy), w którym w kolejnych liniach znajdują się polecenia zdefiniowane w
+poprzednich punktach (polecenie run nazwa_skryptu)
+*/
 
 
 struct macierz
