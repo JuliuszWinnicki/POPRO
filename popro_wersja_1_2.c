@@ -91,7 +91,7 @@ macierz* znajdzMacierz(char nazwaMacierzy[], Lista* pierwszy)
         }
 	} while(ElListy != NULL);
 	printf("Element z polem o zadanej wartosci nie znajduje sie na liscie\n");
-	return 0;
+	return pierwszy->m;
 }
 //--------------------------------------------------------------
 
