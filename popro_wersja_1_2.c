@@ -68,9 +68,9 @@ void zapiszBin(void)
     // fprintf(stdout, "Blad!");
     // }
 
-wskMacierz dodajMacierz(int liczbaElementow)
+macierz* dodajMacierz(int liczbaElementow)
 {
-    wskMacierz nowaMacierz = malloc(sizeof(char) * MAXNAZWA + sizeof(wskMacierz) + sizeof(int) + sizeof(char) * liczbaElementow);
+    wskMacierz nowaMacierz = malloc(sizeof(char) * MAXNAZWA + sizeof(wskMacierz) + sizeof(int) + sizeof(float) * liczbaElementow);
     return nowaMacierz;
 }
 
@@ -122,16 +122,7 @@ int main()
 
     char kom[MAXLICZBASLOW][MAXKOMENDA];
 
-    while(c!='/n' && j<5)
-    {
-        i=0;
-        while (c!=' ' && c!='/n') //wczytwanie komend
-        {
-            c = getchar();
-            kom[j][i++] = c;
-        }
-        j++;
-    }
+    
 
     if (strcmp(kom[0], "Run") == 0) // Instrukcja obslugi
     {
