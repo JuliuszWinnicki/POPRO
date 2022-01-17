@@ -152,6 +152,26 @@ Lista* macierzDoListy(macierz* macierz, Lista* elListy)
     }
 }
 
+//------------usuwanie macierzy--------------------------------
+Lista* usunMacierz(WskElListy pierwszy, char nazwaMacierzy[])  {
+	WskElListy ElListy=pierwszy, poprzedniElListy=NULL;
+	do {
+        if(strcmp((ElListy->m)->nazwaMacierzy, nazwaMacierzy)==0) {
+        	if(ElListy==pierwszy) pierwszy = ElListy->nast;
+        	else poprzedniElListy->nast = ElListy->nast;
+            free(ElListy->m);
+        	free(ElListy);
+        	return pierwszy;
+        }
+    	poprzedniElListy = ElListy;
+        ElListy = ElListy->nast;
+	} while(ElListy != NULL);
+	printf("Element z polem o zadanej wartosci nie znajduje sie na liscie\n");
+	return pierwszy;
+}
+//--------------------------------------------------------------
+
+
 int main()
 {
     Lista* pierwszyElement = NULL
