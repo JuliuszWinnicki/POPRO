@@ -220,6 +220,7 @@ int main()
         c=getchar();
         komenda[i++]=c;
     }
+    i=0;
     char* token = strtok(komenda, " ");
     while(token!=NULL)
     {
