@@ -13,7 +13,7 @@
 
 typedef struct macierz
 {
-    char nazwaMacierzy[];
+    char nazwaMacierzy[MAXNAZWA];
     int liczbaKolumn;
     int liczbaWierszy;
     float *zawartosc;
