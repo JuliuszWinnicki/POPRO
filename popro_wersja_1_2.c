@@ -4,7 +4,8 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MAXKOMENDA 50;
+#define MAX_KOMENDA 200;
+#define MAX_SLOWO 40;
 #define MAXNAZWA 20;
 #define MAXLICZBASLOW 5;
 #define P_B "Macierze.bin"  //P_B - plik binarny, nazwa pliku
@@ -26,17 +27,19 @@ typedef struct Lista
 } Lista;
 
 
-void wygenerujSkrypt()
+
+void wygenerujSkrypt(char nazwapliku[])
 {
+
     FILE *fptr;
-    if (fptr = fopen("Instrukcja.txt", "r") != NULL)
+    if (fptr = fopen(nazwapliku, "r") != NULL)
     {
-        fprintf(stdout, "Plik ze skryptem zostal juz wygenerowany wczesniej\n");
+        fprintf(stdout, "Plik o podanej nazwie juz istnieje\n");
         fclose(fptr);
     }
     else
     {
-        if (fptr = fopen("Instrukcja.txt", "w") != NULL) //zabezpieczenie przed nieprawidlowym otwieraniem pliku
+        if (fptr = fopen(nazwapliku, "w") != NULL) //zabezpieczenie przed nieprawidlowym otwieraniem pliku
         {
             fprintf(fptr, "Wyjscie z programu poleceniem Exit\n");
             fclose(fptr);
@@ -44,6 +47,7 @@ void wygenerujSkrypt()
         else
         {
             fprintf(stdout, "Blad!");
+            fprintf(stdout, "Sprawdz czy wprowadzona nazwa pliku zawiera \".txt\" na koncu.\n");
         }
     }
 }
@@ -70,7 +74,7 @@ void zapiszBin(void)
 
 macierz* dodajMacierz(int liczbaElementow)
 {
-    wskMacierz nowaMacierz = malloc(sizeof(char) * MAXNAZWA + sizeof(wskMacierz) + sizeof(int) + sizeof(float) * liczbaElementow);
+    macierz* nowaMacierz = malloc(sizeof(char) * MAXNAZWA + sizeof(wskMacierz) + sizeof(int) + sizeof(float) * liczbaElementow);
     return nowaMacierz;
 }
 
@@ -86,47 +90,73 @@ int liczElTabeli(char tab[])
     return liczbaEl;
 }
 
-wskMacierz polaczenieSzeregowe(wskMacierz s1, wskMacierz s2, nazwaNowejMacierzy)
+macierz* polaczenieSzeregowe(macierz* s1, macierz* s2, nazwaNowejMacierzy)
 {
-    int liczbaEl1 = liczElTabeli(s1->zawartosc);
-    int liczbaEl2 = liczElTabeli(s2->zawartosc);
-    int liczbaWierszy1 = liczbaArg1 / (s1->liczbakolumn);
-    int liczbaWierszy2 = liczbaArg2 / (s2->liczbakolumn);
-    if (liczbaWierszy1 != liczbaWierszy2)
+    int liczbaEl1 = s1->liczbaKolumn * s1->liczbaWierszy;
+    int liczbaEl2 = s1->liczbaKolumn * s2->liczbaWierszy;
+    if (s1->liczbaWierszy != s2->liczbaWierszy)
     {
         fprintf(stdout, "BLAD\nnie da sie polaczyc szeregowo macierzy o dwoch roznych liczbach wierszy\n\n");
     }
     else
     {
         int nowaLiczbaElMacierzy = liczbaEl1 + liczbaEl2;
-        wskMacierz nowaMacierz = dodajMacierz(nowaLiczbaElMacierzy);
-        int nowaMacierz.liczbakolumn = (s1->liczbakolumn) + (s2->liczbakolumn);
+        macierz* nowaMacierz = dodajMacierz(nowaLiczbaElMacierzy);
+        int nowaMacierz.liczbaKolumn = (s1->liczbaKolumn) + (s2->liczbaKolumn);
         strcpy(nowaMacierz->nazwaMacierzy, nazwaNowejMacierzy);
-        for (int i = 0; i < liczbaArg1, i++)
+        for (int i = 0; i < liczbaEl1, i++)
         {
             nowaMacierz->zawartosc[i] = s1->zawartosc[i];
         }
-        for (int i = 0; i < liczbaArg2, i++)
+        for (int i = 0; i < liczbaEl2, i++)
         {
-            nowaMacierz->zawartosc[i + liczbaArg1] = s2->zawartosc[i];
+            nowaMacierz->zawartosc[i + liczbaEl1] = s2->zawartosc[i];
         }
         return nowaMacierz;
     }
 }
 
+macierz* macierzDoListy(macierz* macierz, Lista* elListy)
+{
+    Lista* nowyElListy= (Lista*)malloc(sizeof(Lista) );
+    if(nowyElListy==NULL)
+    {
+        printf("Blad!\n");
+        return NULL;
+    }
+    else
+    {
+        nowyElListy->m=macierz;
+        nowyElListy->nastepny=elListy;
+        return nowyElListy;
+    }
+}
+
 int main()
 {
+    Lista* pierwszyElement = NULL
     int c = 0;
     int i = 0;
     int j = 0;
-
-    char kom[MAXLICZBASLOW][MAXKOMENDA];
-
+    char komenda[MAX_KOMENDA];
+    char slowo[8][MAX_SLOWO];
     
-
-    if (strcmp(kom[0], "Run") == 0) // Instrukcja obslugi
+    //pobieranie komendy
+    while(c!='\n')
     {
-        wygenerujSkrypt();
+        c=getchar();
+        komenda[i++]=c;
+    }
+    char* token = strtok(komenda, " ");
+    while(token!=NULL)
+    {
+        strcpy(slowo[i++], token);
+        token=strtok(NULL, " ");
+    }
+
+    if (strcmp(slowo[1], "Run") == 0) // Instrukcja obslugi
+    {
+        wygenerujSkrypt(slowo[2]);
     }
 
     if (strcmp(kom, "") == 0)
