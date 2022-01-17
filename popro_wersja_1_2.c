@@ -78,7 +78,8 @@ macierz* dodajMacierz(int liczbaElementow)
     return nowaMacierz;
 }
 
-int liczElTabeli(char tab[])
+//-------chyba ta funkcja nie bedzie potrzebna--------
+/*int liczElTabeli(char tab[])
 {
     int i = 0;
     int liczbaEl = 0;
@@ -88,9 +89,10 @@ int liczElTabeli(char tab[])
         liczbaEl++;
     }
     return liczbaEl;
-}
+}*/
+//-----------------------------------------------------
 
-macierz* polaczenieSzeregowe(macierz* s1, macierz* s2, nazwaNowejMacierzy)
+macierz* polaczeniePoziome(macierz* s1, macierz* s2, nazwaNowejMacierzy)
 {
     int liczbaEl1 = s1->liczbaKolumn * s1->liczbaWierszy;
     int liczbaEl2 = s1->liczbaKolumn * s2->liczbaWierszy;
@@ -112,11 +114,12 @@ macierz* polaczenieSzeregowe(macierz* s1, macierz* s2, nazwaNowejMacierzy)
         {
             nowaMacierz->zawartosc[i + liczbaEl1] = s2->zawartosc[i];
         }
+        nowaMacierz->liczbaWierszy = s1->liczbaWierszy;
         return nowaMacierz;
     }
 }
 
-macierz* macierzDoListy(macierz* macierz, Lista* elListy)
+Lista* macierzDoListy(macierz* macierz, Lista* elListy)
 {
     Lista* nowyElListy= (Lista*)malloc(sizeof(Lista) );
     if(nowyElListy==NULL)
@@ -141,7 +144,7 @@ int main()
     char komenda[MAX_KOMENDA];
     char slowo[8][MAX_SLOWO];
     
-    //pobieranie komendy
+    //---------------pobieranie komendy-----------------
     while(c!='\n')
     {
         c=getchar();
@@ -153,46 +156,70 @@ int main()
         strcpy(slowo[i++], token);
         token=strtok(NULL, " ");
     }
+    slowo[i+1]="STOP";
+    //---------------------------------------------------
 
-    if (strcmp(slowo[1], "Run") == 0) // Instrukcja obslugi
+    //----------------OPCJE MENU-------------------------
+    if (strcmp(slowo[0], "Run") == 0) // Instrukcja obslugi
     {
         wygenerujSkrypt(slowo[2]);
     }
 
-    if (strcmp(kom, "") == 0)
+    if (strcmp(slowo[0], "Load") == 0)
     {
+        zaladujZBinarnego(slowo[1], slowo[3]); //ta funkcja jeszcze nie istnieje    !!!!!!!!!!!!DO NAPISANIA!!!!!!!!!!!
+                                               //slowo[1] - nazwa pliku
+                                               //slowo[3] - nazwa macierzy
         /* Załadowanie  macierzy  z  pliku  binarnego  poleceniem  Load  nazwa_pliku  >  nazwa_macierzy. 
         ”nazwa_macierzy”  jest  łańcuchem  znaków  identyfikującym  daną  macierz.  W  systemie  nie  mogą 
         istnieć dwie macierze o takich samych nazwach. Nazwa macierzy musi zaczynać się od małej litery. */
     }
-    if (strcmp(kom, "") == 0)
+    if (strcmp(slowo[0], "Save") == 0)
     {
+        zapiszBin(slowo[1], slowo[3]); //slowo[1] - nazwa macierzy
+                                       //slowo[3] - nazwa pliku 
         // Zapis macierzy do pliku binarnego poleceniem Save nazwa_macierzy > nazwa_pliku
     }
-    if (strcmp(kom, "") == 0)
+    if (strcmp(slowo[0], "Txt") == 0)
     {
+        zapiszTxt (slowo[1], slowo[3]); //ta funkcja jeszcze nie istnieje !!!!!!!!!!DO NAPISANIA!!!!!!!!!!!!
+                                       //slowo[1] - nazwa macierzy
+                                       //slowo[3] - nazwa pliku
         /* Zapis  macierzy  do  pliku  tekstowego  poleceniem  Txt  nazwa_macierzy  >  nazwa_pliku  w  formie 
         czytelnej dla człowieka (można wprowadzić ograniczenie rozmiarów macierzy). */
     }
-    if (strcmp(kom, "") == 0)
+    if (strcmp(slowo[0], "Print") == 0)
     {
+        wyswietlNaEkranie(slowo[1]); //ta funkcja jeszcze nie istnieje !!!!!!!!!!DO NAPISANIA!!!!!!!!!!!!
+                                    //slowo[1] - nazwa macierzy
         /*Wypisanie macierzy na ekranie poleceniem Print nazwa_macierzy (można wprowadzić ograniczenie 
         rozmiarów macierzy, żeby zmieściła się na ekranie) */
     }
-    if (strcmp(kom, "") == 0)
+    if (strcmp(slowo[0], "Delete") == 0)
     {
+        usunMacierz(slowo[1]); //ta funkcja jeszcze nie istnieje !!!!!!!!!!DO NAPISANIA!!!!!!!!!!!!
+                                //slowo[1] - nazwa macierzy
         /*Skasowanie macierzy poleceniem Delete nazwa_macierzy*/
     }
-    if (strcmp(kom, "") == 0)
+    if (strcmp(slowo[3], "-") == 0)
     {
+        roznicaMacierzy(slowo[0], slowo[2], slowo[4]); //ta funkcja jeszcze nie istnieje !!!!!!!!!!DO NAPISANIA!!!!!!!!!!!!
+                                                       //slowo[0] - nazwa macierzy nowej
+                                                       //slowo[2] - nazwa macierzy 1
+                                                       //slowo[4] - nazwa macierzy 2
         /*Obliczenie różnicy macierzy: nazwa_macierzy_1 = nazwa_macierzy_2 - nazwa_macierzy_3*/
     }
-    if (strcmp(kom, "") == 0)
+    if (strcmp(slowo[3], "*") == 0)
     {
+        iloczynMacierzy(slowo[0], slowo[2], slowo[4]); //ta funkcja jeszcze nie istnieje !!!!!!!!!!DO NAPISANIA!!!!!!!!!!!!
+                                                       //slowo[0] - nazwa macierzy nowej
+                                                       //slowo[2] - nazwa macierzy 1
+                                                       //slowo[4] - nazwa macierzy 2
         /*Obliczenie iloczynu macierzy: nazwa_macierzy_1 =  nazwa_macierzy_2 * nazwa_macierzy_3*/
     }
-    if (strcmp(kom, "") == 0)
+    if (strcmp(slowo[3], "#") == 0)
     {
+        polaczeniePoziome(slowo[0], slowo[2], slowo[4]);
         /*Połączenie „poziome” macierzy:  
         nazwa_macierzy_1 = nazwa_macierzy_2 # nazwa_macierzy_3*/
     }
@@ -201,4 +228,5 @@ int main()
         /*Wypisanie  na  ekranie  w  kolejności  alfabetycznej  wszystkich  aktualnie  występujących  w  systemie 
         macierzy  wraz z ich wymiarami i rozmiarem w pamięci w bajtach – polecenie List.*/
     }
+    //-------------------------------------------
 }
