@@ -72,9 +72,12 @@ void zapiszBin(void)
     // fprintf(stdout, "Blad!");
     // }
 
-macierz* dodajMacierz(int liczbaElementow)
+macierz* dodajMacierz(int liczbaWierszy, int liczbaKolumn, char nazwaMacierzy[])
 {
-    macierz* nowaMacierz = malloc(sizeof(char) * MAXNAZWA + sizeof(wskMacierz) + sizeof(int) + sizeof(float) * liczbaElementow);
+    macierz* nowaMacierz = malloc(sizeof(char) * MAXNAZWA + sizeof(wskMacierz) + sizeof(int) + sizeof(float) * liczbaWierszy*liczbaKolumn);
+    strcpy(nowaMacierz->nazwaMacierzy, nazwaMacierzy);
+    nowaMacierz->liczbaWierszy = liczbaWierszy;
+    nowaMacierz->liczbaKolumn = liczbaKolumn;
     return nowaMacierz;
 }
 
@@ -109,6 +112,7 @@ macierz* znajdzMacierz(char nazwaMacierzy[], Lista* pierwszy)
 }*/
 //-----------------------------------------------------
 
+//--------------------FUNKCJE MATEMATYCZNE-------------------------------
 macierz* polaczeniePoziome(macierz* s1, macierz* s2, nazwaNowejMacierzy)
 {
     int liczbaEl1 = s1->liczbaKolumn * s1->liczbaWierszy;
@@ -120,9 +124,8 @@ macierz* polaczeniePoziome(macierz* s1, macierz* s2, nazwaNowejMacierzy)
     else
     {
         int nowaLiczbaElMacierzy = liczbaEl1 + liczbaEl2;
-        macierz* nowaMacierz = dodajMacierz(nowaLiczbaElMacierzy);
-        int nowaMacierz.liczbaKolumn = (s1->liczbaKolumn) + (s2->liczbaKolumn);
-        strcpy(nowaMacierz->nazwaMacierzy, nazwaNowejMacierzy);
+        int nowaLiczbaKolumn = s1->liczbaKolumn + s2->liczbaKolumn;
+        macierz* nowaMacierz = dodajMacierz(s1->liczbaWierszy, nowaLiczbaKolumn, nazwaNowejMacierzy);
         for (int i = 0; i < liczbaEl1, i++)
         {
             nowaMacierz->zawartosc[i] = s1->zawartosc[i];
@@ -136,6 +139,26 @@ macierz* polaczeniePoziome(macierz* s1, macierz* s2, nazwaNowejMacierzy)
     }
 }
 
+macierz* roznicaMacierzy (macierz* r1, macierz* r2, nazwaNowejMacierzy[])
+{
+    if(r1->liczbaWierszy != r2->liczbaWierszy || r1.liczbaKolumn != r2.liczbaKolumn)
+    {
+        printf("Aby policzyc roznice macierzy obie macierze musza byc tej samej wielkosci\n")
+    }
+    else
+    {
+        macierz* nowaMacierz=dodajMacierz(r1->liczbaWierszy, r1->liczbaKolumn, nazwaNowejMacierzy);
+        for(int i=0; i<(r1->liczbaWierszy)*(r1->liczbaKolumn); i++)
+        {
+            nowaMacierz->zawartosc[i]=r1->zawartosc[i]-r2->zawartosc[i];
+        }
+    }
+    return nowaMacierz;
+}
+
+//----------------------------------------------------------------------
+
+//------------dodawanie macierzy do listy------------------
 Lista* macierzDoListy(macierz* macierz, Lista* elListy)
 {
     Lista* nowyElListy= (Lista*)malloc(sizeof(Lista) );
@@ -151,6 +174,7 @@ Lista* macierzDoListy(macierz* macierz, Lista* elListy)
         return nowyElListy;
     }
 }
+//-----------------------------------------------------------
 
 //------------usuwanie macierzy--------------------------------
 Lista* usunMacierz(WskElListy pierwszy, char nazwaMacierzy[])  {
@@ -234,13 +258,15 @@ int main()
     }
     if (strcmp(slowo[0], "Delete") == 0)
     {
-        usunMacierz(slowo[1]); //ta funkcja jeszcze nie istnieje !!!!!!!!!!DO NAPISANIA!!!!!!!!!!!!
+        usunMacierz(slowo[1]); 
                                 //slowo[1] - nazwa macierzy
         /*Skasowanie macierzy poleceniem Delete nazwa_macierzy*/
     }
     if (strcmp(slowo[3], "-") == 0)
     {
-        roznicaMacierzy(slowo[0], slowo[2], slowo[4]); //ta funkcja jeszcze nie istnieje !!!!!!!!!!DO NAPISANIA!!!!!!!!!!!!
+        macierz* m1 = znajdzMacierz(slowo[2], pierwszyElement);
+        macierz* m2 = znajdzMacierz(slowo[4], pierwszyElement);
+        roznicaMacierzy(m1, m2, slowo[0]); 
                                                        //slowo[0] - nazwa macierzy nowej
                                                        //slowo[2] - nazwa macierzy 1
                                                        //slowo[4] - nazwa macierzy 2
@@ -256,9 +282,9 @@ int main()
     }
     if (strcmp(slowo[3], "#") == 0)
     {
-        znajdzMacierz(slowo[2]);
-        znajdzMacierz(slowo[4]);
-        polaczeniePoziome(slowo[0], slowo[2], slowo[4]);
+        macierz* m1=znajdzMacierz(slowo[2]);
+        macierz* m2=znajdzMacierz(slowo[4]);
+        polaczeniePoziome(m1, m2, slowo[0]);
         /*Połączenie „poziome” macierzy:  
         nazwa_macierzy_1 = nazwa_macierzy_2 # nazwa_macierzy_3*/
     }
