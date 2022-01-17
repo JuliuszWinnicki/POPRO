@@ -6,6 +6,7 @@
 
 #define MAXKOMENDA 50;
 #define MAXNAZWA 20;
+#define MAXLICZBASLOW 5;
 #define P_B "Macierze.bin"  //P_B - plik binarny, nazwa pliku
 
 /*
@@ -34,7 +35,7 @@ struct macierz
 };
 
 typedef struct macierz macierz;
-typedef struct macierz *wskMacierz;
+typedef struct *macierz wskMacierz;
 
 void wygenerujSkrypt()
 {
@@ -128,16 +129,22 @@ int main()
 {
     int c = 0;
     int i = 0;
+    int j = 0;
 
-    char kom[MAXKOMENDA];
+    char kom[MAXLICZBASLOW][MAXKOMENDA];
 
-    while (c != '') //wczytwanie komend
+    while(c!='/n' && j<5)
     {
-        c = getchar();
-        kom[i++] = c;
+        i=0;
+        while (c!=' ' && c!='/n') //wczytwanie komend
+        {
+            c = getchar();
+            kom[j][i++] = c;
+        }
+        j++;
     }
 
-    if (strcmp(kom, "Run") == 0) // Instrukcja obslugi
+    if (strcmp(kom[0], "Run") == 0) // Instrukcja obslugi
     {
         wygenerujSkrypt();
     }
