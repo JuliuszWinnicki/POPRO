@@ -9,33 +9,22 @@
 #define MAXLICZBASLOW 5;
 #define P_B "Macierze.bin"  //P_B - plik binarny, nazwa pliku
 
-/*
-1. Wyjscie z programu poleceniem exit
-2. Dodanie wierzcholka poleceniem a : L, gdzie L jest etykieta dodawanego wierzcholka.
-3. Dodanie krawedzi poleceniem a : L1 , L2, gdzie L1 i L2 to etykiety wskazujace wierzcholki, miedzy ktorymi
-ma byc utworzona krawedz.
-4. Usuniecie wierzcholka poleceniem r : L
-5. Usuniecie krawedzi poleceniem r: L1 , L2
-6. Zapis do pliku tekstowego o zadanej przez uzytkownika nazwie listy sasiedztwa grafu (polecenie save
-nazwa_pliku).
-7. Zapis do pliku binarnego o zadanej przez uzytkownika nazwie etykiet bedacych aktualnie w uzyciu
-(polecenie dump nazwa_pliku).
-8. Wypisanie na standardowym wyjsciu etykiet bedacych aktualnie w uzyciu w postaci pionowego wektora
-(polecenie list).
-9. Wywolanie skryptu (plik tekstowy), w ktorym w kolejnych liniach znajduja sie polecenia zdefiniowane w
-poprzednich punktach (polecenie run nazwa_skryptu)
-*/
 
-struct macierz
+typedef struct macierz
 {
-    char nazwaMacierzy[MAXNAZWA];
+    char nazwaMacierzy[];
     int liczbaKolumn;
-    char zawartosc[];
-    struct macierz *nastepny;
-};
+    int liczbaWierszy;
+    float *zawartosc;
+} macierz;
 
-typedef struct macierz macierz;
-typedef struct *macierz wskMacierz;
+
+typedef struct Lista
+{
+    macierz *m;
+    Lista *nastepny;
+} Lista;
+
 
 void wygenerujSkrypt()
 {
