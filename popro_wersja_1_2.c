@@ -78,6 +78,23 @@ macierz* dodajMacierz(int liczbaElementow)
     return nowaMacierz;
 }
 
+//----------znajdowanie macierzy w liscie po nazwie------------
+macierz* znajdzMacierz(char nazwaMacierzy[], Lista* pierwszy)
+{
+    Lista* ElListy=pierwszy;
+	do {
+        if(strcmp((ElListy->m)->nazwaMacierzy, nazwaMacierzy)==0) {
+        	return ElListy->m;
+        }
+        else{
+        ElListy = ElListy->nast;
+        }
+	} while(ElListy != NULL);
+	printf("Element z polem o zadanej wartosci nie znajduje sie na liscie\n");
+	return 0;
+}
+//--------------------------------------------------------------
+
 //-------chyba ta funkcja nie bedzie potrzebna--------
 /*int liczElTabeli(char tab[])
 {
@@ -219,6 +236,8 @@ int main()
     }
     if (strcmp(slowo[3], "#") == 0)
     {
+        znajdzMacierz(slowo[2]);
+        znajdzMacierz(slowo[4]);
         polaczeniePoziome(slowo[0], slowo[2], slowo[4]);
         /*Połączenie „poziome” macierzy:  
         nazwa_macierzy_1 = nazwa_macierzy_2 # nazwa_macierzy_3*/
