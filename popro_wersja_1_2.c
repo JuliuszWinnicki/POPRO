@@ -52,25 +52,34 @@ void wygenerujSkrypt(char nazwapliku[])
     }
 }
 
-void zapiszBin(void)
+void zapiszBin(char nazwaPliku[], macierz* macierz)
 {   //funkcja powinna być aktywowana wpisaniem nazwy macierzy i od razu wychwytywać struct o tej nazwie (1. char)
-    char nmbin = macierz.nazwaMacierzy; //nmbin czyli zapis nazwy macierzy do binarnej
-    int lkbin = macierz.liczbaKolumn; //lkb -//- liczby kolumn
-    char zbin = macierz.zawartosc;   //zbin -//- zawartosc
+    char slowoPlikuNazwa[5][20];
+    char* token = strtok(nazwaPliku, ".");
+    while(token!=NULL)
+    {
+        strcpy(slowoPlikuNazwa[i++], token);
+        token=strtok(NULL, " ");
+    }
+    if(strcmp(slowoPlikuNazwa[i], "bin")!=0)
+    {
+        strcat(nazwaPliku, ".bin");
+    }
     FILE* fb;
-    if ((fb=fopen(P_B, "wb"))!=NULL);
+    if ((fb=fopen(nazwaPliku, "wb"))!=NULL);
     {
 //      Nie wiem czy jest potrzebny taki komunikat, czy nie wykrzaczy się przez dwie komendy wyświetlania takstu)
 //      printf("Zapisano macierz „%s” do pliku Macierze.bin", macierz.nazwaMacierzy);
-        fwrite(nmbin, sizeof(mnbin), 1, fb);
-        fwrite(lkbin, sizeof(lkbin), 1, fb);
-        fwrite(zbin, sizeof(zbin), 1, fb);
+        fwrite(macierz->nazwaMacierzy, sizeof(macierz->nazwaMacierzy), 1, fb);
+        fwrite(macierz->liczbaKolumn, sizeof(macierz->liczbaKolumn), 1, fb);
+        fwrite(macierz->liczbaWierzy, sizeof(macierz->liczbaWierszy), 1, fb);
+        fwrite(macierz->zawartosc, sizeof(macierz->zawartosc), 1, fb);
     fclose(fb);
     }
-    // else
-    // {
-    // fprintf(stdout, "Blad!");
-    // }
+    else
+    {
+        fprintf(stdout, "Blad!\n");
+    }
 
 macierz* dodajMacierz(int liczbaWierszy, int liczbaKolumn, char nazwaMacierzy[])
 {
@@ -217,7 +226,7 @@ int main()
         strcpy(slowo[i++], token);
         token=strtok(NULL, " ");
     }
-    slowo[i+1]="STOP";
+    strcpy(slowo[i+1],"STOP");
     //---------------------------------------------------
 
     //----------------OPCJE MENU-------------------------
@@ -237,7 +246,8 @@ int main()
     }
     if (strcmp(slowo[0], "Save") == 0)
     {
-        zapiszBin(slowo[1], slowo[3]); //slowo[1] - nazwa macierzy
+        macierz* m1=znajdzMacierz(slowo[1], pierwszyElement);
+        zapiszBin(slowo[3], m1); //slowo[1] - nazwa macierzy
                                        //slowo[3] - nazwa pliku 
         // Zapis macierzy do pliku binarnego poleceniem Save nazwa_macierzy > nazwa_pliku
     }
@@ -274,7 +284,9 @@ int main()
     }
     if (strcmp(slowo[3], "*") == 0)
     {
-        iloczynMacierzy(slowo[0], slowo[2], slowo[4]); //ta funkcja jeszcze nie istnieje !!!!!!!!!!DO NAPISANIA!!!!!!!!!!!!
+        macierz *m1 = znajdzMacierz(slowo[2], pierwszyElement);
+        macierz *m2 = znajdzMacierz(slowo[4], pierwszyElement);
+        iloczynMacierzy(m1, m2, slowo[0]); //ta funkcja jeszcze nie istnieje !!!!!!!!!!DO NAPISANIA!!!!!!!!!!!!
                                                        //slowo[0] - nazwa macierzy nowej
                                                        //slowo[2] - nazwa macierzy 1
                                                        //slowo[4] - nazwa macierzy 2
@@ -282,14 +294,15 @@ int main()
     }
     if (strcmp(slowo[3], "#") == 0)
     {
-        macierz* m1=znajdzMacierz(slowo[2]);
-        macierz* m2=znajdzMacierz(slowo[4]);
+        macierz* m1=znajdzMacierz(slowo[2], pierwszyElement);
+        macierz* m2=znajdzMacierz(slowo[4], pierwszyElement);
         polaczeniePoziome(m1, m2, slowo[0]);
         /*Połączenie „poziome” macierzy:  
         nazwa_macierzy_1 = nazwa_macierzy_2 # nazwa_macierzy_3*/
     }
-    if (strcmp(kom, "") == 0)
+    if (strcmp(slowo[0], "List") == 0)
     {
+        wypiszAlfabetycznie(); //funkcja jeszcze nie istenieje !!!!!!!DO NAPISANIA!!!!!!!!!!!!
         /*Wypisanie  na  ekranie  w  kolejności  alfabetycznej  wszystkich  aktualnie  występujących  w  systemie 
         macierzy  wraz z ich wymiarami i rozmiarem w pamięci w bajtach – polecenie List.*/
     }
