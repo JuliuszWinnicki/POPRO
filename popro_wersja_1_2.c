@@ -267,6 +267,7 @@ int main()
 
     if (strcmp(slowo[0], "Load") == 0)
     {
+        //pamietac o ograniczeniu nazwy macierzy!
         zaladujZBinarnego(slowo[1], slowo[3]); //ta funkcja jeszcze nie istnieje    !!!!!!!!!!!!DO NAPISANIA!!!!!!!!!!!
                                                //slowo[1] - nazwa pliku
                                                //slowo[3] - nazwa macierzy
