@@ -277,13 +277,14 @@ int main()
     if (strcmp(slowo[0], "Save") == 0)
     {
         macierz* m1=znajdzMacierz(slowo[1], pierwszyElement);
-        zapiszBin(slowo[3], m1); //slowo[1] - nazwa macierzy
+        zapiszBin(slowo[3], m1);       //slowo[1] - nazwa macierzy
                                        //slowo[3] - nazwa pliku 
         // Zapis macierzy do pliku binarnego poleceniem Save nazwa_macierzy > nazwa_pliku
     }
     if (strcmp(slowo[0], "Txt") == 0)
     {
-        zapiszTxt (slowo[1], slowo[3]); //ta funkcja jeszcze nie istnieje !!!!!!!!!!DO NAPISANIA!!!!!!!!!!!!
+        macierz* m1=znajdzMacierz(slowo[1]);
+        zapiszTxt (m1, slowo[3]); //ta funkcja jeszcze nie istnieje !!!!!!!!!!DO NAPISANIA!!!!!!!!!!!!
                                        //slowo[1] - nazwa macierzy
                                        //slowo[3] - nazwa pliku
         /* Zapis  macierzy  do  pliku  tekstowego  poleceniem  Txt  nazwa_macierzy  >  nazwa_pliku  w  formie 
@@ -291,7 +292,8 @@ int main()
     }
     if (strcmp(slowo[0], "Print") == 0)
     {
-        wyswietlNaEkranie(slowo[1]); //ta funkcja jeszcze nie istnieje !!!!!!!!!!DO NAPISANIA!!!!!!!!!!!!
+        macierz* m1=znajdzMacierz(slowo[1], pierwszyElement);
+        wyswietlNaEkranie(m1)); //ta funkcja jeszcze nie istnieje !!!!!!!!!!DO NAPISANIA!!!!!!!!!!!!
                                     //slowo[1] - nazwa macierzy
         /*Wypisanie macierzy na ekranie poleceniem Print nazwa_macierzy (można wprowadzić ograniczenie 
         rozmiarów macierzy, żeby zmieściła się na ekranie) */
@@ -316,7 +318,7 @@ int main()
     {
         macierz *m1 = znajdzMacierz(slowo[2], pierwszyElement);
         macierz *m2 = znajdzMacierz(slowo[4], pierwszyElement);
-        iloczynMacierzy(m1, m2, slowo[0]); //ta funkcja jeszcze nie istnieje !!!!!!!!!!DO NAPISANIA!!!!!!!!!!!!
+        iloczynMacierzy(m1, m2, slowo[0]); 
                                                        //slowo[0] - nazwa macierzy nowej
                                                        //slowo[2] - nazwa macierzy 1
                                                        //slowo[4] - nazwa macierzy 2
