@@ -20,6 +20,7 @@ void main()
             c = getchar();
             komenda[i++] = c;
         }
+        komenda[i++]=' ';
     i=0;
     char* token=strtok(komenda, " ");
     while(token!=NULL){
