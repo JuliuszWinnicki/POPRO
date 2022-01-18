@@ -186,9 +186,9 @@ macierz* iloczynMacierzy (macierz* r1, macierz* r2, nazwaNowejMacierzy[])
                 {
                     wynik=wynik+r1->zawartosc[(r1->liczbaWierszy)*i+numerWiersza]*r2->zawartosc[(r2->liczbaKolumn)*numerKolumny+i];
                 }
+                nowaMacierz->zawartosc[numerKolumny*(r1->liczbaWierszy)+numerWiersza]=wynik;
+                wynik=0;
             }
-            nowaMacierz->zawartosc[numerKolumny*(r1->liczbaWierszy)+numerWiersza]=wynik;
-            wynik=0;
         }
     }
     return nowaMacierz;
