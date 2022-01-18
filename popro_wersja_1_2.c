@@ -175,15 +175,23 @@ macierz* iloczynMacierzy (macierz* r1, macierz* r2, nazwaNowejMacierzy[])
     else
     {
         macierz* nowaMacierz=dodajMacierz(r1->liczbaWierszy, r1->liczbaKolumn, nazwaNowejMacierzy);
-        for(int j=0; j<r1->liczbaWierszy; j++)
+        int numerKolumny=0;
+        int numerWiersza=0;
+        int wynik=0;
+        for(numerKolumny=0; numerKolumny<r1->liczbaKolumn; numerKolumny++)
         {
-            for(int i=0; i<r1->liczbaKolumn; i++)
+            for(numerWiersza=0; numerWiersza<r1->liczbaWierszy; numerWiersza++)
             {
-                wynik=wynik+((r1->zawartosc[r1->liczbaWierszy*i+j])*(r2->zawartosc[r2->liczbaKolumn*j+i]))
+                for(int i=0; i<r1->liczbaKolumn; i++)
+                {
+                    wynik=wynik+r1->zawartosc[(r1->liczbaWierszy)*i+numerWiersza]*r2->zawartosc[(r2->liczbaKolumn)*numerKolumny+i];
+                }
             }
-            nowaMacierz->zawartosc[r1->liczbaWierszy*i+j]; //to jest do poprawienia, ale nie mam teraz do tego glowy (18 I 2022 1:29)
+            nowaMacierz->zawartosc[numerKolumny*(r1->liczbaWierszy)+numerWiersza]=wynik;
+            wynik=0;
         }
     }
+    return nowaMacierz;
 }
 
 //----------------------------------------------------------------------
