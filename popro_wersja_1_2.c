@@ -306,29 +306,49 @@ int main()
     }
     if (strcmp(slowo[3], "-") == 0)
     {
-        macierz* m1 = znajdzMacierz(slowo[2], pierwszyElement);
-        macierz* m2 = znajdzMacierz(slowo[4], pierwszyElement);
-        roznicaMacierzy(m1, m2, slowo[0]); 
-                                                       //slowo[0] - nazwa macierzy nowej
-                                                       //slowo[2] - nazwa macierzy 1
-                                                       //slowo[4] - nazwa macierzy 2
+        if(slowo[0][0]>='a' && slowo[0][0]<='z' )
+        {
+            macierz* m1 = znajdzMacierz(slowo[2], pierwszyElement);
+            macierz* m2 = znajdzMacierz(slowo[4], pierwszyElement);
+            roznicaMacierzy(m1, m2, slowo[0]); //slowo[0] - nazwa macierzy nowej
+                                               //slowo[2] - nazwa macierzy 1
+                                               //slowo[4] - nazwa macierzy 2
+        }
+        else
+        {
+            printf("Nazwa macierzy musi zaczynac sie od malej litery alfabetu lacinskiego\n");
+        }                                      
         /*Obliczenie różnicy macierzy: nazwa_macierzy_1 = nazwa_macierzy_2 - nazwa_macierzy_3*/
     }
     if (strcmp(slowo[3], "*") == 0)
     {
-        macierz *m1 = znajdzMacierz(slowo[2], pierwszyElement);
-        macierz *m2 = znajdzMacierz(slowo[4], pierwszyElement);
-        iloczynMacierzy(m1, m2, slowo[0]); 
+        if(slowo[0][0]>='a' && slowo[0][0]<='z' )
+        {
+            macierz *m1 = znajdzMacierz(slowo[2], pierwszyElement);
+            macierz *m2 = znajdzMacierz(slowo[4], pierwszyElement);
+            iloczynMacierzy(m1, m2, slowo[0]); 
                                                        //slowo[0] - nazwa macierzy nowej
                                                        //slowo[2] - nazwa macierzy 1
                                                        //slowo[4] - nazwa macierzy 2
+        }
+        else
+        {
+            printf("Nazwa macierzy musi zaczynac sie od malej litery alfabetu lacinskiego\n");
+        }                               
         /*Obliczenie iloczynu macierzy: nazwa_macierzy_1 =  nazwa_macierzy_2 * nazwa_macierzy_3*/
     }
     if (strcmp(slowo[3], "#") == 0)
     {
-        macierz* m1=znajdzMacierz(slowo[2], pierwszyElement);
-        macierz* m2=znajdzMacierz(slowo[4], pierwszyElement);
-        polaczeniePoziome(m1, m2, slowo[0]);
+        if(slowo[0][0]>='a' && slowo[0][0]<='z' )
+        {
+            macierz* m1=znajdzMacierz(slowo[2], pierwszyElement);
+            macierz* m2=znajdzMacierz(slowo[4], pierwszyElement);
+            polaczeniePoziome(m1, m2, slowo[0]);
+        }
+        else
+        {
+            printf("Nazwa macierzy musi zaczynac sie od malej litery alfabetu lacinskiego\n");
+        }      
         /*Połączenie „poziome” macierzy:  
         nazwa_macierzy_1 = nazwa_macierzy_2 # nazwa_macierzy_3*/
     }
