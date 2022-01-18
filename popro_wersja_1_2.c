@@ -165,6 +165,27 @@ macierz* roznicaMacierzy (macierz* r1, macierz* r2, nazwaNowejMacierzy[])
     return nowaMacierz;
 }
 
+macierz* iloczynMacierzy (macierz* r1, macierz* r2, nazwaNowejMacierzy[])
+{
+    float wynik=0;
+    if(r1->liczbaWierszy!=r2->liczbaKolumn || r1->liczbaKolumn!=r2->liczbaWierszy)
+    {
+        printf("Liczba wierszy jednej macierzy musi byc rowna liczbie kolumn drugiej macierzy i na odwrot\n");
+    }
+    else
+    {
+        macierz* nowaMacierz=dodajMacierz(r1->liczbaWierszy, r1->liczbaKolumn, nazwaNowejMacierzy);
+        for(int j=0; j<r1->liczbaWierszy; j++)
+        {
+            for(int i=0; i<r1->liczbaKolumn; i++)
+            {
+                wynik=wynik+((r1->zawartosc[r1->liczbaWierszy*i+j])*(r2->zawartosc[r2->liczbaKolumn*j+i]))
+            }
+            nowaMacierz->zawartosc[r1->liczbaWierszy*i+j]; //to jest do poprawienia, ale nie mam teraz do tego glowy (18 I 2022 1:29)
+        }
+    }
+}
+
 //----------------------------------------------------------------------
 
 //------------dodawanie macierzy do listy------------------
@@ -220,6 +241,7 @@ int main()
         c=getchar();
         komenda[i++]=c;
     }
+    komenda[i++]=' ';
     i=0;
     char* token = strtok(komenda, " ");
     while(token!=NULL)
@@ -227,7 +249,6 @@ int main()
         strcpy(slowo[i++], token);
         token=strtok(NULL, " ");
     }
-    strcpy(slowo[i+1],"STOP");
     //---------------------------------------------------
 
     //----------------OPCJE MENU-------------------------
