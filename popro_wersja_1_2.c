@@ -107,6 +107,39 @@ macierz* znajdzMacierz(char nazwaMacierzy[], Lista* pierwszy)
 }
 //--------------------------------------------------------------
 
+void sprawdzNazwe (char nazwa[], Lista* pierwszy)
+{
+    while(1)
+    {
+        if(nazwa[0]<'a' || nazwa[0]>'z')
+        {
+            printf("Nazwa macierzy musi zaczynac sie mala litera lacinskiego alfabetu\n");
+            printf("Wpisz nowa nazwe dla macierzy\n");
+            memset(nazwa, 0, strlen(nazwa));
+            int i=0;
+            int c=0;
+            while(c!='\n' && c!=' ')
+            {
+                c=getchar();
+                nazwa[i++]=c;
+            }
+        }
+        if(znajdzMacierz(nazwa, pierwszy)!=NULL)
+        {
+            printf("Inna macierz juz nosi taka nazwe.")
+            memset(nazwa, 0, strlen(nazwa));
+            int i=0;
+            int c=0;
+            while(c!='\n' && c!=' ')
+            {
+                c=getchar();
+                nazwa[i++]=c;
+            }
+        }
+        else break;
+    }
+}
+
 //-------chyba ta funkcja nie bedzie potrzebna--------
 /*int liczElTabeli(char tab[])
 {
@@ -358,6 +391,12 @@ int main()
         wypiszAlfabetycznie(); //funkcja jeszcze nie istenieje !!!!!!!DO NAPISANIA!!!!!!!!!!!!
         /*Wypisanie  na  ekranie  w  kolejności  alfabetycznej  wszystkich  aktualnie  występujących  w  systemie 
         macierzy  wraz z ich wymiarami i rozmiarem w pamięci w bajtach – polecenie List.*/
+    }
+
+    if(strcmp(slowo[0], "Random")==0)
+    {
+        macierz* m1 = losujMacierz(slowo[1])
+        /* po wpisaniu "Random "nazwaNowejMacierzy
     }
     //-------------------------------------------
 }
